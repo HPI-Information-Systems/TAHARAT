@@ -22,4 +22,4 @@ TAHARAT takes a raw CSV file containing ill-formed records as input and outputs 
 	-  For the IDE, import TAHARAT as a project, and you can set the arguments in the `Run Configuration`. 
 	
        
-The system only requires one argument, which is the file path to the input raw file.
+The system requires two arguments: 1) the input raw file path, and 2) the output cleaned file path.
