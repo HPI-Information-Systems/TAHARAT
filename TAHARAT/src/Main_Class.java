@@ -95,15 +95,16 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 		Main_Class main_method_object = new Main_Class();
 		
 		String inputFile = args[0];
+		String cleanedFile = args[1];
 		
 		try {
-			main_method_object.programsInitiator(inputFile);
+			main_method_object.programsInitiator(inputFile, cleanedFile);
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void programsInitiator(String inputFile) throws UnsupportedEncodingException, FileNotFoundException
+	public void programsInitiator(String inputFile, String cleanedFile) throws UnsupportedEncodingException, FileNotFoundException
 	{
 		 Main_Class programsInitiator_Object = new Main_Class();
 		 PatternClassification patClassifiaction_Object = new PatternClassification();
@@ -125,8 +126,7 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 		 for(ComparePatternCombinations obj : wellFormed_Patterns)
 		 {
 			 wellFormed.addAll(obj.intersection);  
-		 }
-		 Csv_Writer.write(wellFormed_Patterns);    
+		 } 
 		 
 		 incremantal_Patterns =  programsInitiator_Object.patternManipulation(wellFormed_Patterns,  recordWithIndicesList);
 		 
@@ -147,7 +147,7 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 			 }	 
 		 }
 				 
-		 patTransformation_Object.patternReciever(patterns_to_Transform , Main_Class.indicesForTransformation, new ArrayList<Integer>(wanted), new ArrayList<Integer>(wellFormed));
+		 patTransformation_Object.patternReciever(cleanedFile, patterns_to_Transform , Main_Class.indicesForTransformation, new ArrayList<Integer>(wanted), new ArrayList<Integer>(wellFormed));
 		 
 		 System.out.println("The program has executed successfully!");
 	}
@@ -236,10 +236,6 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 			}   
 		
      	Collections.sort(patternStatistics, new ListComparator());
-		PatternStatistics.write(patternStatistics);       //
-		
-		Csv_Writer.writeOutliers(illFormedIndicies);    
-		
 //		for(PatternStatistics ps: patternStatistics)
 //		 {
 //			Collections.sort(ps.patternIndices);

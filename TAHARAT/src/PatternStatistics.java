@@ -23,49 +23,6 @@ public class PatternStatistics {
 		this.patternIndices = patternIndices;
 		this.size = size;
 	}
-
-
-	public static void write(List<PatternStatistics> output_patterns_input_data)
-	{
-		
-		 List<List<Object>> printingPatterns = new ArrayList<List<Object>>();
-		 List l = new ArrayList<>();
-		 l.add("Patterns");
-		 l.add("Indices");
-		 printingPatterns.add(l);
-		 for(int i = 0; i<output_patterns_input_data.size(); i++)
-		 {
-			 List<Object> l_Obj = new ArrayList<Object>();
-			 l_Obj.add(Csv_Writer.getStringRepresentation(output_patterns_input_data.get(i).patternReprsentation));
-			 Collections.sort(output_patterns_input_data.get(i).patternIndices);
-			 l_Obj.add((output_patterns_input_data.get(i).patternIndices.toString().replaceAll("[\\[ \\]\\s]", ""))); 
-			 printingPatterns.add(l_Obj);
-		 }
-		 
-		 PatternStatistics.writeCSV(printingPatterns);
-	}
-	
-	public static void writeCSV (List<List<Object>> printingPatterns)
-	{
-		String write_PLI_output_results = "C:/Users/M.Hameed/Desktop/IncrementalRowPatterns.csv";
-		try (Writer outputWriter = new OutputStreamWriter(new FileOutputStream(new File(write_PLI_output_results)),"UTF-8"))
-		{
-			 
-		    CsvWriterSettings settings = new CsvWriterSettings();
-		    settings.setSkipEmptyLines(false);
-			
-			CsvWriter writer = new CsvWriter(outputWriter, settings);
-			   
-			for (int i = 0; i < printingPatterns.size(); i++) 
-			{
-			    writer.writeRow(printingPatterns.get(i));
-			}
-			writer.close();
-	     }
-	     catch (IOException e) {
-	        // handle exception
-	     }	
-	 }
 	
 	@Override
 	public String toString() {

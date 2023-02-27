@@ -23,7 +23,7 @@ public class PatternTransformation {
 
 	private static final Gap_Class GAP_CLASS = new Gap_Class();
     
-	public void patternReciever(List<PatternAlignmentResult> patterns_to_Transform, Map<Integer, String[]> indicesForTransformation, List<Integer> wanted, List<Integer> wellFormed) 
+	public void patternReciever(String cleanedFile, List<PatternAlignmentResult> patterns_to_Transform, Map<Integer, String[]> indicesForTransformation, List<Integer> wanted, List<Integer> wellFormed) 
 	{
 //		System.out.println("------------------------------------- Transformation Ready --------------------------------------");
 		
@@ -168,7 +168,7 @@ public class PatternTransformation {
 		 cleanRecords.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
 		 
 		 
-		 Csv_Writer.cleanCSV(sortedMap);
+		 Csv_Writer.cleanCSV(sortedMap, cleanedFile);
 	 }
 	
 	public static Map<Integer, String[]> extractRecords(Map<Integer, String[]> recordWithIndicesList, List<Integer> indices)
