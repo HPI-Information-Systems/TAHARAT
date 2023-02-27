@@ -6,7 +6,7 @@ TAHARAT takes a raw CSV file containing ill-formed records as input and outputs 
 ## Setup
 
 1. The code is written using Java 8.
-2. Download the available code as a zip file or cloned SURAGH repository.
+2. Download the available code as a zip file or cloned TAHARAT repository.
 3. Include the following external libraries: 
 	- univocity-parsers-2.9.1 or its latest version
 	- commons-lang3-3.11
