@@ -108,7 +108,6 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 		 Main_Class programsInitiator_Object = new Main_Class();
 		 PatternClassification patClassifiaction_Object = new PatternClassification();
 		 PatternTransformation patTransformation_Object = new PatternTransformation();
-		 GroundTruthComparison groundTruth_Object = new GroundTruthComparison();
 
 		 List<String> columns_recordList = new ArrayList<>();
 		 List<ComparePatternCombinations> wellFormed_Patterns = new ArrayList<>(); 
