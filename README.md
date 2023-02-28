@@ -1,7 +1,7 @@
-# TAHARAT: Cleaning ill-formed Records in CSV Files
+# TAHARAT: Cleaning ill-formed Rows in CSV Files
 Code repository of the TAHARAT project, developed at the Information Systems Group of the Hasso Plattner Institute.
 
-TAHARAT takes a raw CSV file containing ill-formed records as input and outputs a cleaned version of the file by correcting the structure of the incorrectly formatted records.
+TAHARAT takes a raw CSV file containing ill-formed rows as input and outputs a cleaned version of the file by correcting the structure of the incorrectly formatted rows.
 
 ## Setup
 
