@@ -8,7 +8,6 @@ public class PatternRegeneration {
 
 	public static List<ComparePatternCombinations> patternRegeneration (Map<Integer, List<String>> recordWithIndicesList, List<Integer> outlierRows)
 	{
-		// re-run SURAGH pattern generation on extracted ill-formed records to get ill-formed patterns 
 					PatternGeneration patGen_Object = new PatternGeneration();
 					PruningPatterns pruPat_Object = new PruningPatterns();
 					PatternSchema patSchema_Object = new PatternSchema();
@@ -22,11 +21,11 @@ public class PatternRegeneration {
 					}
 					
 					int getMaxListSize = getMaxSizeList(PatternRegeneration.extractRecords(recordWithIndicesList, outlierRows));
-					Map<Integer,List<List<Object>>> map_regeneratedPatterns = patGen_Object.patternComputation(valueList, getMaxListSize, Main_Class.univocityDetetced_delimiter); // if half of the file has comma as delimiter and half as semicolon, "Main_Class.univocityDetetced_delimiter" is not the right way to deal with it. We then, have to call again univocity parser to get new value using new delimiter for ill-formed records. Keep in mind we have to fix this in the end during transformation as both patterns will have <DEL> as abstraction for both comma and semicolon.  
-					List<List<Object>> optimalObjectList = pruPat_Object.patternWeights_patternPruning(map_regeneratedPatterns, 1, 1, outlierRows.size()); // trying 1% for both threshold "Main_Class.col_T" and  "Main_Class.row_T", changed this code on 10 June 2022
+					Map<Integer,List<List<Object>>> map_regeneratedPatterns = patGen_Object.patternComputation(valueList, getMaxListSize, Main_Class.univocityDetetced_delimiter);   
+					List<List<Object>> optimalObjectList = pruPat_Object.patternWeights_patternPruning(map_regeneratedPatterns, 1, 1, outlierRows.size()); 
 					List<ComparePatternCombinations> outputPatterns= patSchema_Object.schemaGeneration(Main_Class.row_T, outlierRows.size(), optimalObjectList);
 					
-					if(patSchema_Object.schemaGeneration(Main_Class.row_T, outlierRows.size(), optimalObjectList) == null)  // the method returns null if any column pattern coverage is less than the given threshold so basically the column information is missing
+					if(patSchema_Object.schemaGeneration(Main_Class.row_T, outlierRows.size(), optimalObjectList) == null)  
 						return null;
 					
 						

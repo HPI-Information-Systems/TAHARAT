@@ -71,20 +71,17 @@ public class GetAbstractionIndex {
 	static List<Object> literalLineBreak = Arrays.asList((char)10, (char)13);
 	
 	static List<Object> literalnull = Arrays.asList((Object)null);
-
-	// add block for missing values class static List<Object> literal_missing =======================================
 	
 	public Map<Integer, List<Integer>> abstractionIndex(List<Object> readyto_Transform, List<Object> string_TO_object)
 	{
 		Map<Integer,List<Integer>> delete_entries_Map = new LinkedHashMap<Integer, List<Integer>>(); // get index positions for the input string based on the abstractions
 		for(int i= 0; i<readyto_Transform.size(); i++)
     	{
-//    		System.out.println("Class position   "+readyto_Transform.get(i));
     		List<Integer> entriesLIST = new ArrayList<Integer>();
     		
-    		if(!(readyto_Transform.get(i) instanceof Character)) // "if" block only for abstractions -- for only "characters" add "else" block
+    		if(!(readyto_Transform.get(i) instanceof Character)) 
     		{
-    			if(readyto_Transform.get(i).toString() == FULL_TEXT_CLASS.toString()) // === Full text ===
+    			if(readyto_Transform.get(i).toString() == FULL_TEXT_CLASS.toString())
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -94,7 +91,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
   
-    			if(readyto_Transform.get(i).toString() == NUMBER_CLASS.toString()) // === number ===
+    			if(readyto_Transform.get(i).toString() == NUMBER_CLASS.toString()) 
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -115,7 +112,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
     			
-    			if(readyto_Transform.get(i).toString() == EMPTY_VALUES_CLASS.toString()) // ==== Null ====
+    			if(readyto_Transform.get(i).toString() == EMPTY_VALUES_CLASS.toString()) 
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -136,7 +133,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
     			
-    			if(readyto_Transform.get(i).toString() == LINE_BREAK_CLASS.toString()) // ============== Line break ====================
+    			if(readyto_Transform.get(i).toString() == LINE_BREAK_CLASS.toString()) 
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -157,7 +154,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
     			
-    			if(readyto_Transform.get(i).toString() == ARITHMETIC_OPRT_CLASS.toString()) // ============== Arithmetic ====================
+    			if(readyto_Transform.get(i).toString() == ARITHMETIC_OPRT_CLASS.toString())
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -178,7 +175,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
     			
-    			if(readyto_Transform.get(i).toString() == BRACKETS_CLASS.toString()) // ============== Bracket ====================
+    			if(readyto_Transform.get(i).toString() == BRACKETS_CLASS.toString()) 
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -199,7 +196,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
     			
-    			if(readyto_Transform.get(i).toString() == SYMBOL_CLASS.toString()) // ============== Symbol ====================
+    			if(readyto_Transform.get(i).toString() == SYMBOL_CLASS.toString()) 
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -220,7 +217,7 @@ public class GetAbstractionIndex {
     				delete_entries_Map.put(i, entriesLIST);
     			 }
     			
-    		   if(readyto_Transform.get(i).toString() == TEXT_CLASS.toString()) // ============== TEXT ====================
+    		   if(readyto_Transform.get(i).toString() == TEXT_CLASS.toString()) 
     			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -240,7 +237,7 @@ public class GetAbstractionIndex {
 				    }
     				delete_entries_Map.put(i, entriesLIST);
     			 }
-    			if(readyto_Transform.get(i).toString() == SPACE_CLASS.toString() || readyto_Transform.get(i).toString() == WHITESPACE_CLASS.toString()) // === SPACE -OR- WHITESPACE_CLASS ===
+    			if(readyto_Transform.get(i).toString() == SPACE_CLASS.toString() || readyto_Transform.get(i).toString() == WHITESPACE_CLASS.toString())
     			 {
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -260,8 +257,9 @@ public class GetAbstractionIndex {
 				    }
     				delete_entries_Map.put(i, entriesLIST);
     			}
-    			if(readyto_Transform.get(i).toString() == DIGIT_CLASS.toString() || readyto_Transform.get(i).toString() == SEQUENCE_DIGIT_CLASS.toString()) // === DIGITS ===
-    			 {
+    			
+    			if(readyto_Transform.get(i).toString() == DIGIT_CLASS.toString() || readyto_Transform.get(i).toString() == SEQUENCE_DIGIT_CLASS.toString())     			 
+    			{
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
 		              if(literalDigits.contains(string_TO_object.get(j)))
@@ -280,7 +278,7 @@ public class GetAbstractionIndex {
 				    }
     				delete_entries_Map.put(i, entriesLIST);
     			}
-    		   if(readyto_Transform.get(i).toString() == UPPER_LETTER_CLASS.toString() || readyto_Transform.get(i).toString() == SEQUENCE_UPPER_LETTER_CLASS.toString()) // === Upper Letters ===
+    		   if(readyto_Transform.get(i).toString() == UPPER_LETTER_CLASS.toString() || readyto_Transform.get(i).toString() == SEQUENCE_UPPER_LETTER_CLASS.toString()) 
     			 {
     				for(int j = 0; j < string_TO_object.size(); j++)
 				    {
@@ -341,7 +339,7 @@ public class GetAbstractionIndex {
   				delete_entries_Map.put(i, entriesLIST);
   			   }
     		}
-    		else if(readyto_Transform.get(i) instanceof Character) // "else if" block for characters 
+    		else if(readyto_Transform.get(i) instanceof Character)  
     		{
     			for(int j = 0; j < string_TO_object.size(); j++)
 			    {

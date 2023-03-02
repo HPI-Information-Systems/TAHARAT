@@ -8,28 +8,22 @@ import java.util.Map;
 public class Merge{
 
 	public List<Object> apply(List<Object> input, List<Object> output) {
-		// TODO Auto-generated method stub
+		
 		List<Object> results = new ArrayList<Object>();
-		
-		
 		return results;
 	}
 
-	public String shiftFIX (String input, String univocityDetetced_QUOTE, String univocityDetetced_ESCAPE)
+	public String reQuote_reEscape (String input, String univocityDetetced_QUOTE, String univocityDetetced_ESCAPE)
 	{
 		
-		// use ReQuote, ReEscape, ReDelimit and ReLine for inserting or replacing dialect member characters, while use Drop for deleting them from the incorrect positions
 		StringBuilder sb = new StringBuilder();
 		boolean flagQuoteAppear = false;
-		
-		//========================== if Quote and Escape are the same===================
-		
+				
 		if(univocityDetetced_ESCAPE.contentEquals(univocityDetetced_QUOTE))
 		{
-			if(input.toString().matches("^[-\"%.+,0-9]+$")) //==============if input contains no letters=================
+			if(input.toString().matches("^[-\"%.+,0-9]+$")) 
 			{
-				// i is starting from 1 as first index has "univocityDetetced_QUOTE"
-				sb.append("\""); // starting quote
+				sb.append("\""); 
 				for(int i = 1; i<input.length()-1; i++)
 				{
 				   if(input.charAt(i) != univocityDetetced_QUOTE.charAt(0))
@@ -37,12 +31,11 @@ public class Merge{
 						sb.append(input.charAt(i));
 					}
 				}
-				sb.append("\""); // ending quote		
+				sb.append("\""); 
 			}
-			else //==================== if input contains letters===================
+			else 
 			{
-				// i is starting from 1 as first index has "univocityDetetced_QUOTE"
-				sb.append("\""); // starting quote
+				sb.append("\""); 
 				for(int i = 1; i<input.length()-1; i++)
 				{
 					if(flagQuoteAppear == false && input.charAt(i) == univocityDetetced_QUOTE.charAt(0))
@@ -57,19 +50,18 @@ public class Merge{
 						sb.append(input.charAt(i));
 					}
 				}
-				sb.append("\""); // ending quote	
+				sb.append("\""); 
 			}
 			
 		}
-		//========================== if Quote and Escape are different===================
+		
 		else
 		{
-			if(input.toString().matches("^[-\"%.+,0-9]+$")) //==============if input contains no letters=================
+			if(input.toString().matches("^[-\"%.+,0-9]+$")) 
 			{
-				// i is starting from 1 as first index has "univocityDetetced_QUOTE"
 				if(univocityDetetced_ESCAPE.length()>1)
 				{
-					sb.append("\""); // starting quote
+					sb.append("\""); 
 					for(int i = 1; i<input.length()-1; i++)
 					{
 					   if(i+1 <input.length()-1 && input.charAt(i) != univocityDetetced_ESCAPE.charAt(0) && input.charAt(i+1) != univocityDetetced_ESCAPE.charAt(1))
@@ -77,11 +69,11 @@ public class Merge{
 							sb.append(input.charAt(i));
 						}
 					}
-					sb.append("\""); // ending quote
+					sb.append("\"");
 				}
 				else
 				{
-					sb.append("\""); // starting quote
+					sb.append("\""); 
 					for(int i = 1; i<input.length()-1; i++)
 					{
 					   if(input.charAt(i) != univocityDetetced_ESCAPE.charAt(0))
@@ -89,16 +81,16 @@ public class Merge{
 							sb.append(input.charAt(i));
 						}
 					}
-					sb.append("\""); // ending quote	
+					sb.append("\""); 
 				}
 					
 			}
-			else //==================== if input contains letters===================
+			else 
 			{
-				// i is starting from 1 as first index has "univocityDetetced_QUOTE"
+				
 				if(univocityDetetced_ESCAPE.length()>1)
 				{
-					sb.append("\""); // starting quote
+					sb.append("\"");
 					for(int i = 1; i<input.length()-1; i++)
 					{
 						if(i+1 <input.length()-1 && flagQuoteAppear == false && input.charAt(i) == univocityDetetced_ESCAPE.charAt(0) && input.charAt(i+1) == univocityDetetced_ESCAPE.charAt(1))
@@ -113,11 +105,11 @@ public class Merge{
 							sb.append(input.charAt(i));
 						}
 					}
-					sb.append("\""); // ending quote
+					sb.append("\""); 
 				}
 				else
 				{
-					sb.append("\""); // starting quote
+					sb.append("\""); 
 					for(int i = 1; i<input.length()-1; i++)
 					{
 						if(flagQuoteAppear == false && input.charAt(i) == univocityDetetced_ESCAPE.charAt(0))
@@ -132,11 +124,9 @@ public class Merge{
 							sb.append(input.charAt(i));
 						}
 					}
-					sb.append("\""); // ending quote
-				}
-					
+					sb.append("\""); 
+				}	
 			}
-	
 		}
 		
 		return sb.toString();

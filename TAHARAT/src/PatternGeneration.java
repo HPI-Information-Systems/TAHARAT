@@ -994,8 +994,6 @@ static List<Dependency_Class> specified_depdendencies = new ArrayList<Dependency
 								List appendNullList = new ArrayList<>();						
 																								
 								appendNullList.add(Arrays.asList(PADDED_CLASS));
-//								appendNullList.add(Arrays.asList(EMPTY_VALUES_CLASS));
-//								appendNullList.add(Arrays.asList(MISSING_VALUES_CLASS));
 								listoflist.add(listoflist.size()-1,appendNullList);
 							}
 						}
@@ -1017,12 +1015,6 @@ static List<Dependency_Class> specified_depdendencies = new ArrayList<Dependency
 			     }
 				    
 			   }
-			
-//		for(Entry entry: map_Combined_listoflist_results.entrySet())
-//		{
-//			System.out.println(entry.getKey() + "       "+entry.getValue());
-//		}
-		
 	
 	return map_Combined_listoflist_results;
 	 

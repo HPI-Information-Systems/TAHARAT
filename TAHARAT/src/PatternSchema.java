@@ -47,7 +47,7 @@ public class PatternSchema {
 			
 	   	}
 		
-		int threshold = (int)((float)(row_T*all_rows_list/100.0));  // Threshold to allow intersection 
+		int threshold = (int)((float)(row_T*all_rows_list/100.0));  
 		if(threshold == 0)
 			threshold = 1;
 		
@@ -75,7 +75,7 @@ public class PatternSchema {
 						}
 					}
 
-		           temp = compare(temp, temp1, threshold);   // incremental pattern generation 
+		           temp = compare(temp, temp1, threshold);  
 		        }	
 			}
 	        catch(Exception ex)

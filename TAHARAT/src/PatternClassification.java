@@ -30,37 +30,19 @@ public class PatternClassification {
 		// cpcList contains valid patterns
 		// psList contains patterns that need to be further classified or transformed
 		
-		List<List<DynamicMatrixStatistics>> editDistanceMatrices= new ArrayList<List<DynamicMatrixStatistics>>();
-		List<DynamicMatrixStatistics> editDistanceMatrices_subList = new ArrayList<DynamicMatrixStatistics>();
-		
 		List<List<DynamicMatrixStatistics>> globalAlignment= new ArrayList<List<DynamicMatrixStatistics>>();
 		List<DynamicMatrixStatistics> globalAlignment_subList = new ArrayList<DynamicMatrixStatistics>();
         
 		for(int i = 0; i<cpcList.size(); i++)
 		{ 
-			
-			editDistanceMatrices_subList.clear();
 			globalAlignment_subList.clear();
-//			String alpha = Csv_Writer.getStringRepresentation(cpcList.get(i).abstrcationInstances);
+			
 			for(int j = 0; j<psList.size(); j++)
 			{
-//				String beta = Csv_Writer.getStringRepresentation(psList.get(j).patternReprsentation);
-//				System.out.println(alpha+"    "+ beta);
-				
-//				int editDistanceMatrix[][]= PatternEditDistance.editDP(psList.get(j).patternReprsentation, cpcList.get(i).abstrcationInstances); // try to see how far the potential dominant pattern is from the dominant pattern
-//				editDistanceMatrices_subList.add(new DynamicMatrixStatistics(cpcList.get(i).abstrcationInstances, psList.get(j).patternReprsentation, psList.get(j).patternIndices, editDistanceMatrix, editDistanceMatrix[editDistanceMatrix.length-1][editDistanceMatrix[editDistanceMatrix.length-1].length-1]));
-				
-//				System.out.println("Patterns distance is "+ dynamicMatrix[cpcList.get(i).abstrcationInstances.size()][psList.get(j).patternReprsentation.size()]);   // printing the cost 
-//		        System.out.println(dynamicMatrix[dynamicMatrix.length-1][dynamicMatrix[dynamicMatrix.length-1].length-1]);   // printing the cost 
-				
 				float seqAlignmentMatrix[][] = PatternAlignment.sequenceAlignment(psList.get(j).patternReprsentation, cpcList.get(i).abstrcationInstances);
 				globalAlignment_subList.add(new DynamicMatrixStatistics(cpcList.get(i).abstrcationInstances, psList.get(j).patternReprsentation, psList.get(j).patternIndices, seqAlignmentMatrix, seqAlignmentMatrix[seqAlignmentMatrix.length-1][seqAlignmentMatrix[seqAlignmentMatrix.length-1].length-1]));
-				
-//				System.out.println("Patterns distance is "+ seqAlignmentMatrix[cpcList.get(i).abstrcationInstances.size()][psList.get(j).patternReprsentation.size()]);   // printing the cost 
-//		        System.out.println(seqAlignmentMatrix[seqAlignmentMatrix.length-1][seqAlignmentMatrix[seqAlignmentMatrix.length-1].length-1]);   // printing the cost 
 			}	
 			
-//			editDistanceMatrices.add(new ArrayList<DynamicMatrixStatistics>(editDistanceMatrices_subList));
 			globalAlignment.add(new ArrayList<DynamicMatrixStatistics>(globalAlignment_subList));
 			
 		}
@@ -136,34 +118,7 @@ public class PatternClassification {
 			}
 		}
 		
-		String write_DM_output_results_aligments = "C:/Users/M.Hameed/Desktop/AlignmentTraces.csv";
-		try (Writer outputWriter = new OutputStreamWriter(new FileOutputStream(new File(write_DM_output_results_aligments)),"UTF-8"))
-		{
-			 
-		    CsvWriterSettings settings = new CsvWriterSettings();
-		    settings.setSkipEmptyLines(false);
-			
-			CsvWriter writer = new CsvWriter(outputWriter, settings);
-			   
-			int counter = 1;  // for writing on disk 
-			for(List<PatternAlignmentResult> par_list : out_PAR)	
-			{
-				writer.writeRow();
-				writer.writeRow(" ::::::::::::::::::::::::::::::::::::::::::::::: " +"    Record :: " + counter+"    :::::::::::::::::::::::::::::::::::::::::::::::: ");
-				writer.writeRow();
-				for(PatternAlignmentResult par: par_list)
-				{
-					writer.writeRow(par.pairs_of_patterns + " :: " + par.pairs_of_indices+ " :: " + par.row_indices+ " ::" +par.pairs_score);
-				}
-			    counter++;
-			}
-			writer.close();
-	     }
-	     catch (IOException e) {
-	        // handle exception
-	     }	
-		
-		return PatternClassification.patternAlignmentPrePro(out_PAR, dominanPatternSegmentSize); // initiate pre-processing of potential dominant patterns
+		return PatternClassification.patternAlignmentPrePro(out_PAR, dominanPatternSegmentSize); 
 	}
     
 	// pattern alignment preprocessor -------------------------------pattern alignment preprocessor----------------------------pattern alignment preprocessor
@@ -178,66 +133,14 @@ public class PatternClassification {
 			{
 				if(par.pairs_of_patterns.size() > dominanPatternSegmentSize)
 				{
-					// add pre-processed patterns to the list of ready for classification patterns
 					patterns_for_classification.add(PatternAlignmentPreprocessor.repairPatterns(par)); 
 				}
 				else
 				{
-					//START----------------- Calculating distance after removing delimiters -----------------  added on 11 November 2022
-//					List<Pair<List<Object>, List<Object>>> pairs_Pat = new ArrayList<Pair<List<Object>,List<Object>>>();
-//					for(Pair<List<Object>, List<Object>> p: par.pairs_of_patterns )
-//					{
-//						if( !(p.getKey().toString().contains(CANDIDATE_DELIMITER_CLASS.toString()) && p.getValue().toString().contains(CANDIDATE_DELIMITER_CLASS.toString())) )
-//							pairs_Pat.add(p);
-//					}
-//					par.pairs_score = PatternAlignmentScore.parseAlignmentSegments(pairs_Pat);
-					//END----------------- Calculating distance after removing delimiters -----------------  added on 11 November 2022
-					
 					patterns_for_classification.add(par);
 				}
 			}
 		}
-		
-        // the difference between here and "AlignmentTraces.csv" printing is List<List<PatternAlignmentResult>> and List<PatternAlignmentResult>
-		// in the former one we need to access parts of the list one by one that is why we used List<List>>, however we can change "AlignmentTraces.csv" also to  List<PatternAlignmentResult>
-		String write_DM_output_results_aligments = "C:/Users/M.Hameed/Desktop/AlignmentTracesPreProcessed.csv";
-		try (Writer outputWriter = new OutputStreamWriter(new FileOutputStream(new File(write_DM_output_results_aligments)),"UTF-8"))
-		{
-			 
-		    CsvWriterSettings settings = new CsvWriterSettings();
-		    settings.setSkipEmptyLines(false);
-			
-			CsvWriter writer = new CsvWriter(outputWriter, settings);
-			   
-			int counter = 1;  // for writing on disk 
-			for(PatternAlignmentResult par_list : patterns_for_classification)	
-			{
-				if(par_list.pairs_score <= 0.30)
-				{
-					writer.writeRow();
-					writer.writeRow(" ::::::::::::::::::::::::::::::::::::::::::::::: " +"    Record :: " + counter+"    :::::::::::::::::::::::::::::::::::::::::::::::: ");
-					writer.writeRow();
-					
-					writer.writeRow(par_list.pairs_of_patterns + " :: " + par_list.pairs_of_indices+ " :: " + par_list.row_indices+ " ::" +par_list.pairs_score);
-				}
-			    
-				
-			    counter++;
-			}
-			writer.close();
-	     }
-	     catch (IOException e) {
-	        // handle exception
-	     }	
-		
-		
-//		System.out.println("------------------------------------- pre-processed--------------------------------------");
-		
-//		for(PatternAlignmentResult result: patterns_for_classification)
-//		{
-//			if(result.pairs_score <= 0.30)
-//			 System.out.println(result.pairs_of_patterns+"     "+result.pairs_of_indices+"    "+"    "+result.row_indices + "     "+result.pairs_score);
-//		}
 		
 		return patterns_for_classification;
 	}

@@ -254,29 +254,7 @@ public class PatternAlignmentScore {
 			test.put(map, PatternAlignmentScore.parseAlignmentSegments(entry.getKey()));	
 		}
 		
-		Float min_score_alignment = Collections.min(test.values()); // getting the minimum score for alignment in incremental phase
-		
-//		LinkedHashMap<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>> mm = new LinkedHashMap<>();
-//		for(Entry<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>> entry : 
-//			((LinkedHashMap<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>>) getKey(test , min_score_alignment)).entrySet())
-//        {
-//			for(int m = 0; m < ((List<Pair<List<Object>, List<Object>>>)(entry.getKey())).size(); m++)
-//			{
-//				if(((List<Pair<List<Object>, List<Object>>>)(entry.getKey())).get(m).getKey().toString().contains(GAP_CLASS.toString()))
-//				{
-//					Iterator itr = ((List<Pair<List<Object>, List<Object>>>)(entry.getKey())).get(m).getKey().iterator();
-//					while (itr.hasNext())
-//					{
-//						Object obj = itr.next();
-//						if(obj.equals(GAP_CLASS.toString()))
-//							itr.remove();
-//					}
-//				}
-//			}
-//		    
-//			mm.put(entry.getKey(), entry.getValue()); 
-//        }
-        
+		Float min_score_alignment = Collections.min(test.values()); 
 		optimal_Alignment.put(((LinkedHashMap<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>>) getKey(test , min_score_alignment)), min_score_alignment); 
 	}
     
@@ -364,8 +342,8 @@ public class PatternAlignmentScore {
 		return repaired;
     }
     
-    public static Object getKey(Map<Map<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>>, Float> test, float value)  // to get the keys for the Literals from the patternClassCombinations
-	    {
+    public static Object getKey(Map<Map<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>>, Float> test, float value)  
+	 {
 	        for (Object key: test.keySet())
 	        {
 	        	float compare = test.get(key);
@@ -374,31 +352,6 @@ public class PatternAlignmentScore {
 	            }
 	        }
 	        return null;
-	   }
-	 
-//    public static void main(String args[])
-//	  {
-//		
-//		List<Object> l = new ArrayList<Object>();
-//		List<Object> l_2 = new ArrayList<Object>();
-//		
-////		l.add("\"");l.add(new Digit_Class().toString());l.add(',');l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());
-////		l.add(',');l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add("\"");
-////		
-////		
-////		l_2.add("\"");l_2.add(new Sequence_Digit_Class().toString());l_2.add(',');l_2.add(new Sequence_Digit_Class().toString());l_2.add(',');
-////		l_2.add(new Sequence_Digit_Class().toString());l_2.add("\"");
-//		
-//		l.add('S');l.add('S');l.add('S');l.add('S');l.add('S');l.add('S');l.add('S');l_2.add("\"");l_2.add("\"");
-//		l_2.add(TEXT_CLASS.toString());
-//		
-//		System.out.println(pairScore(l, l_2));
-//		
-//		List<Object> list = Arrays.asList(new Object[] {CANDIDATE_DELIMITER_CLASS.toString(), CANDIDATE_DELIMITER_CLASS.toString(),"b"});      
-//		System.out.println(list);
-//		Collections.replaceAll(list, CANDIDATE_DELIMITER_CLASS, "mazhar");
-//		System.out.println(list);
-//	 }
-    
+	  } 
 	
 }

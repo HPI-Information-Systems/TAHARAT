@@ -115,44 +115,17 @@ public class Extract {
 		Map<Integer, Object> clean_ouput = new HashMap<Integer, Object>();
 		List<Pair<Object, Object>> cleaningTrace = new ArrayList<Pair<Object, Object>>();
 		
-//		Split.sequenceAlignment(potentialPart, dominantPart);
-//		
-//		for (int[] x : Split.sequenceAlignment(potentialPart, dominantPart)) {
-//			for (int y : x) {
-//				System.out.print(y + " ");
-//			}
-//			System.out.println();
-//		}
-		
 		Ignore ignoreObject = new Ignore();
 		
-//		if(potentialPart.contains(null) || potentialPart.toString().contains(EMPTY_VALUES_CLASS.toString()) || 
-//				dominantPart.toString().contains(EMPTY_VALUES_CLASS.toString())  || dominantPart.contains(null))
-//		{
-//			return null;
-//		}
-		if(ignoreObject.checkMismatch(dominantPart, potentialPart)) // if not mismatch then ignore else split
+		if(ignoreObject.checkMismatch(dominantPart, potentialPart)) 
 		{
-			//System.out.println(dominantPart +"matchhhhhhhhhh"+ potentialPart);
+			
 			return null;
 		}
 		else
 		{
 			cleaningTrace = Extract.shortestPathGraphCreation(Extract.sequenceAlignment(potentialPart, dominantPart), potentialPart, dominantPart);
 			
-//			if(!(cleaningTrace.toString().contains(GAP_CLASS.toString()))) // FIX THIS --- cleaningTrace.get(0).getKey().toString().contains(GAP_CLASS.toString())
-//			{
-//				return null;
-//			}
-			// uncomment to check if mismatch block has metadata  -- TRY THIS --
-//			if(!(cleaningTrace.get(cleaningTrace.size()-1).getKey().toString().contains(GAP_CLASS.toString())) )
-//			{
-//				System.out.println("no metadata");
-//				return null;
-//			}
-			
-			// for removing special characters only, such as -- Mismatch=[<EV>]=[ , *,  ]
-			// converting objects into strings for comparison -- Collections.disjoint(strings, symbol) 
 			List<String> strings = new ArrayList<>(potentialPart.size());
 			for (Object object : potentialPart) {
 			    strings.add(Objects.toString(object, null));
@@ -161,8 +134,6 @@ public class Extract {
 			if(Collections.disjoint(strings, symbol) && Collections.disjoint(strings, letter) && Collections.disjoint(strings, digit)
 					&& Collections.disjoint(potentialPart, literalDigits) && Collections.disjoint(potentialPart, literalLetters))
 			{
-//				System.out.println("Cleaning trace (if-part) "+cleaningTrace);
-//				System.out.println("potentialPart "+potentialPart);
 				for(int i= 0; i<potentialPart.size(); i++)
 				{
 					if( potentialPart.get(i) instanceof Character && (char)potentialPart.get(i) != 34 && (char)potentialPart.get(i) != 32)
@@ -171,7 +142,6 @@ public class Extract {
 			}
 			else
 			{
-//				System.out.println("Cleaning trace (else-part) "+cleaningTrace);
 				
 				StringBuilder sb_dom = new StringBuilder();
 				for(int i= 0; i<dominantPart.size(); i++)
@@ -181,7 +151,6 @@ public class Extract {
 				if(StringUtils.isBlank(sb_dom.toString()))
 				{
 					
-//					System.out.println("Dominant Part is empty "+dominantPart);
 					return null;
 				}
 				else
@@ -189,12 +158,11 @@ public class Extract {
 					List<Object> temp_Store = potentialPart;
 					for(int i = cleaningTrace.size()-1 ; i >=0; i--)
 					{
-						if(cleaningTrace.get(i).getKey().toString().contains(GAP_CLASS.toString()))  // if potential pattern has more length
+						if(cleaningTrace.get(i).getKey().toString().contains(GAP_CLASS.toString()))  
 						{
-							if(i< potentialPart.size())  /// added this code on 2 January 2023 to avoid out of bound exception
+							if(i< potentialPart.size())  
 							{
 								temp_Store.remove(i);
-//								System.out.println("After cleanining temp store "+temp_Store);
 								if(ignoreObject.checkMismatch(dominantPart, temp_Store))
 								{
 									clean_ouput.put(i , DROP.toString());
@@ -207,20 +175,15 @@ public class Extract {
 							}
 							
 						}
-						else if(cleaningTrace.get(i).getValue().toString().contains(GAP_CLASS.toString()))   // if dominant pattern has more length
+						else if(cleaningTrace.get(i).getValue().toString().contains(GAP_CLASS.toString()))   
 						{
-							// we don't want to insert (invent) new values, thus, return null and henceforth no transformation
-							// use this block if need to insert any pattern or part of dominant pattern -- for now --- return "NULL"
 							return null;
 	 					}
 					}
 				}
 				
-				
-				// check if transformations really needed
 				if(!(clean_ouput.isEmpty()))
 				{
-					//if(potentialPart) contains only digits and if(dominantPart) contains only letters, vice versa ....., such as <SEQD> -- Unknown
 						
 					for(Entry<Integer,Object> entry: clean_ouput.entrySet())
 					{
@@ -229,7 +192,6 @@ public class Extract {
 					
 					if(ignoreObject.checkMismatch(dominantPart, potentialPart))
 					{
-//						System.out.println("cleanig  "+clean_ouput);
 						return clean_ouput;
 					}
 					else
@@ -256,7 +218,6 @@ public class Extract {
 		for (int j = 1; j <= patToAlign; j++)
 			dynamicMAT[0][j] = dynamicMAT[0][j - 1] + 1;
 
-		// Compute the pattern alignment matrix
 		for (int i = 1; i <= patToRefer; i++) {
 			for (int j = 1; j <= patToAlign; j++) {
 
@@ -283,7 +244,7 @@ public class Extract {
 	      return Math.min(z, c);
 	  }
   
-  public static boolean similarityCheck(Object object1, Object object2)  // return true only if exact match
+  public static boolean similarityCheck(Object object1, Object object2)  
   {
   	if(object1.equals(object2))
   	 return true;
@@ -303,17 +264,12 @@ public class Extract {
 	 {
 		 return true;
 	 }	
-//	 else if( (object1.toString().matches("[^A-Za-z0-9]") || symbol.contains(object1.toString())) && (object2.toString().matches("[^A-Za-z0-9]") || symbol.contains(object2.toString())))
-//	 {
-//		 return true;
-//	 }	
 	 else
 		return false;
   }
   
   static  List<Pair<Object, Object>> shortestPathGraphCreation(int[][] matrix, List<Object> potential, List<Object> dominant) 
   {
-      // mark all the vertices 
 	  
 	  Vertex[][] vertices = new Vertex[dominant.size() + 1][potential.size() + 1];
 	       
@@ -325,8 +281,6 @@ public class Extract {
           }
 	  }
       
-      // set the edges and weight
-
 	  for (int i = vertices.length-1; i > 0; i--)
 		  vertices[i][0].adjacencies = 	new Edge[] { new Edge(vertices[i-1][0], 1)};
 	       
@@ -385,7 +339,6 @@ public class Extract {
         		    }
         		    else if(matrix[i-1][j] == shortest && matrix[i][j-1]  == shortest)
         		    {
-        		    	//Changed both to "if" on 3 January 2023
         		    	if(matrix[i-1][j] + 1 == matrix[i][j])
         		    	{
         		    		vertices[i][j].adjacencies = new Edge[] { 
@@ -404,7 +357,6 @@ public class Extract {
               	
         		    else if(matrix[i][j-1]  == shortest && matrix[i-1][j-1]  == shortest )
         		    {
-        		    	//Changed both to "if" on 3 January 2023
         		    	if(matrix[i][j-1] + 1 == matrix[i][j])
         		    	{
         		    		vertices[i][j].adjacencies = new Edge[] { 
@@ -423,7 +375,6 @@ public class Extract {
         		    }
         		    else if(matrix[i-1][j]  == shortest && matrix[i-1][j-1]  == shortest )
         		    {
-        		    	//Changed both to "if" on 3 January 2023        		    	
         		    	if(matrix[i-1][j] + 1 == matrix[i][j])
         		    	{
         		    		vertices[i][j].adjacencies = new Edge[] { 
@@ -506,43 +457,4 @@ public class Extract {
 	
 	  return backtrackTrace;  
   }
-  
-  
-//  public static List<Pair<Object,Object>> backtrack(int[][] matrix, List<Object> potential, List<Object> dominant)
-//  {
-//		List<Pair<Object, Object>> backtrackTrace = new ArrayList<Pair<Object, Object>>();
-//	
-//		int i = matrix.length - 1;
-//		int j = matrix[0].length - 1;
-//		while (i > 0 && j > 0) {							// Exchange potential and dominant patterns so you can get insertions than deletions 
-//			int temp1 = matrix[i - 1][j];
-//			int temp2 = matrix[i][j - 1];
-//			int temp3 = matrix[i - 1][j - 1];
-//
-//			int shortest = min(temp1, temp2, temp3);
-//
-//			if (i > 0 && matrix[i - 1][j]  == shortest) {
-//				backtrackTrace.add(new Pair<Object, Object>(dominant.get(i - 1), GAP_CLASS.toString()));
-//				i--;
-//			}
-//
-//			else if (j > 0 && matrix[i][j - 1]  == shortest) {
-//				backtrackTrace.add(new Pair<Object, Object>(GAP_CLASS.toString(), potential.get(j - 1)));
-//				j--;
-//			}
-//
-//			else if (i > 0 && j > 0 && matrix[i - 1][j - 1]  == shortest) {
-//				backtrackTrace.add(new Pair<Object, Object>(dominant.get(i - 1), potential.get(j - 1)));
-//				i--; j--;
-//			}
-//			
-//		}
-//           
-//	  Collections.reverse(backtrackTrace);
-////	  System.out.println("backtrack path");
-////	  System.out.println(backtrackTrace);
-//	  
-//	return backtrackTrace;
-//  }
-  
 }

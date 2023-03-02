@@ -52,7 +52,6 @@ public class PatternEditDistance {
        int patToRefer =  domPat.size();
        int[][] dynamicMAT = new int[patToRefer + 1][patToTransform + 1];
        dynamicMAT[0][0] = 0;
-       // initialize by the maximum edits possible; insert and delete for each object cost --> 50, e.g., <D><D> -> insertion and deletion cost is 100
        for (int i = 1; i <= patToRefer; i++)
        	dynamicMAT[i][0] = 	dynamicMAT[i-1][0] + getCost(domPat.get(i-1));
        
@@ -154,7 +153,6 @@ public class PatternEditDistance {
 				   counterONE++; counterTWO++;
 			   } 
 		   
-	    	// check for the sequence conditions like --> <SEQD>   --> <D>, <D>, <D>, <D> ; where counter size increases the list size during check
 		    if(counterONE +1 > list1.size() && dominantFlag && sequenceCheckFlag && longSequence )   
 		    	substitution += 20;
 		    else if(counterTWO +1 > list2.size() && potentialFlag && sequenceCheckFlag && longSequence )
@@ -174,7 +172,6 @@ public class PatternEditDistance {
 		   substitution += difference*50;
 	   }
    
-//	   System.out.println(list1 +"             "+ list2+"             "+ substitution +"            " +difference);    // print costs for debugging
 		return substitution;
    }
     
@@ -202,130 +199,6 @@ public class PatternEditDistance {
         int z = Math.min(a, b);
         return Math.min(z, c);
     }
-    
-    //-------------------- commented this method as we are no more using the greedy approach for backtracking----------------------
-    
-//    public static List<PatternEditDistanceResult> backtrack_DM(int[][] matrix, List<List<Object>> potential, List<List<Object>> dominant)
-//    {
-//  	 
-//  	 Map<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>> result= new LinkedHashMap<List<Pair<List<Object>,List<Object>>>, List<Pair<Integer,Integer>>>();
-//  	 List<PatternEditDistanceResult> instance_PEDR_new = new LinkedList<PatternEditDistanceResult>();
-//    	 class Local {
-//    		
-//    		
-//  		    Stack<Pair<Integer,Integer>> positions_stack = new Stack<Pair<Integer,Integer>>();
-//    		Stack<Pair<List<Object>,List<Object>>> segments_stack = new Stack<Pair<List<Object>,List<Object>>>();
-//    		
-//         public void backtrack_recursive(int i , int j)
-//         {
-//            	
-//          	positions_stack.push(new Pair<Integer, Integer>(i,j));
-//          	
-//          	int shortest = 0;
-//        	if(i>0  && j>0)
-//        	{
-//        		int temp1 = matrix[i-1][j];
-//        		int temp2 = matrix[i][j-1];
-//        		int temp3 = matrix[i-1][j-1];	
-//             	
-//             	 shortest = min(temp1, temp2, temp3);
-//        	}
-//        	
-//        	if(i ==0 && j!= 0)
-//        	{
-//        		while(j!=0)
-//        		{
-//        			List<Object> l = new ArrayList<>() ; l.add("delete ");
-//        			
-//        			segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(l), new ArrayList<Object>(potential.get(j-1))));
-//        			if(!(positions_stack.contains(new Pair<Integer, Integer>(i,j))))
-//        			   positions_stack.push(new Pair<Integer, Integer>(i,j));
-//        			j--;
-//        		}
-//        	}
-//        	
-//        	if(j ==0 && i!= 0)
-//        	{
-//        		while(i!=0)
-//        		{
-//        			List<Object> l = new ArrayList<>() ; l.add("insert ");
-//              		
-//              		segments_stack.push(new Pair<List<Object>, List<Object>>( new ArrayList<Object>(l), new ArrayList<Object>(dominant.get(i-1))));
-//              		if(!(positions_stack.contains(new Pair<Integer, Integer>(i,j))))
-//         			   positions_stack.push(new Pair<Integer, Integer>(i,j));
-//        			i--;
-//        		}
-//        	}
-//        	
-//          	if ( i == 0 && j == 0 )
-//          	{
-//          		List<Pair<Integer, Integer>> one = new ArrayList<Pair<Integer,Integer>>();
-//          		for(Pair<Integer, Integer> s : positions_stack)
-//          		{
-//          			one.add(s);
-//          		}
-//          		Collections.reverse(one);
-//          		
-//          		List<Pair<List<Object>,List<Object>>> two = new ArrayList<Pair<List<Object>,List<Object>>>();
-//          		for(Pair<List<Object>, List<Object>> s : segments_stack)
-//          		{
-//          			two.add(s);
-//          		}
-//          		Collections.reverse(two);
-//          		
-//          		result.put(two, one);  
-//          		int score = matrix[matrix.length-1][matrix[matrix.length-1].length-1]; 
-//          		instance_PEDR_new.add(new PatternEditDistanceResult(two, one, score));
-//          		
-//          	}
-//          	if ( i > 0 && j > 0 && similarityCheck(potential.get(j-1), dominant.get(i-1)) )
-//          	{
-//          		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(dominant.get(i-1)), new ArrayList<Object>(potential.get(j-1))));
-//          		backtrack_recursive(i-1, j-1);
-//          		segments_stack.pop();
-//          	}
-//          		
-//           else
-//          	{
-//          			if ( j > 0  && matrix[i][j-1]  == shortest )   // delete cost retrieval
-//                  	{
-//                  		List<Object> l = new ArrayList<>() ; l.add("delete ");
-//                  		
-//                  		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(l), new ArrayList<Object>(potential.get(j-1))));
-//                  		backtrack_recursive(i, j-1);
-//                  		segments_stack.pop();
-//                  	}	
-//                  	
-//          			if ( i > 0 && matrix[i-1][j] == shortest )      // insertion cost retrieval
-//                  	{
-//                  		List<Object> l = new ArrayList<>() ; l.add("insert ");
-//                  		
-//                  		segments_stack.push(new Pair<List<Object>, List<Object>>( new ArrayList<Object>(l), new ArrayList<Object>(dominant.get(i-1))));
-//                  		backtrack_recursive(i-1, j);
-//                  		segments_stack.pop();
-//                  	}
-//                  	
-//                    if ( i > 0 && j > 0  && matrix[i-1][j-1] == shortest )   // substitute cost retrieval
-//                    {
-//                      		List<Object> l = new ArrayList<>() ; l.add("replace "+ potential.get(j-1));
-//                      		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(l), new ArrayList<Object>(dominant.get(i-1))));
-//                      		backtrack_recursive(i-1, j-1);
-//                      		segments_stack.pop();
-//                     }
-//          		}
-//              	
-//
-//          	 positions_stack.pop();
-//           }
-//        };
-//        	
-//        new Local().backtrack_recursive(dominant.size(), potential.size());
-//  	 
-//        return instance_PEDR_new;
-//    }
-    
-
- // shortest path code ======================================================================================================
   
    static List<PatternEditDistanceResult> shortestPathGraphCreation(int[][] matrix, List<List<Object>> potential, List<List<Object>> dominant, List<Integer> crossponding_Rows) 
    {
@@ -555,20 +428,6 @@ public class PatternEditDistance {
  	  
  	  return instance_PEDR_new;  
    }
-   
-   
-// public static void main(String args[])
-//	{
-//		
-//		List<Object> l = new ArrayList<Object>();
-//		List<Object> l_2 = new ArrayList<Object>();
-//		
-//		l.add(new Sequence_Digit_Class().toString());
-//		l_2.add('\"');l_2.add('\"');l_2.add(new Digit_Class().toString());
-//		
-//		System.out.println(get_Substitution_Cost(l, l_2));
-//	
-//	}
     
 }
 

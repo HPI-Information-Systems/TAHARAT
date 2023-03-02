@@ -73,45 +73,6 @@ public class Csv_Writer {
 			e1.printStackTrace();
 		}
 		
-		// ------------------------------ univocity writer with more features but dependent --------------------------------
-		
-//		try (Writer outputWriter = new OutputStreamWriter(new FileOutputStream(new File(_results)),"UTF-8"))
-//		{
-//			 
-//		    CsvWriterSettings settings = new CsvWriterSettings();
-//	
-//		    //settings.getFormat().setQuote('\0');
-//		    //settings.setQuoteEscapingEnabled(false);
-//		 
-//		   
-//			CsvWriter writer = new CsvWriter(outputWriter, settings);
-//					
-//			for (Entry<Integer, String[]> entry: printingPatterns.entrySet()) 
-//			{
-//				List<Object> list = new ArrayList<Object>();
-//				String[] testing = entry.getValue();
-//
-//				for (int j = 0; j < testing.length; j++) 
-//				{
-//					if(testing[j] == null) // for null values
-//					{
-//						list.add(testing[j]);
-//					}
-//					// only printing column values, as parser will add the delimiter and line breaks itself
-//					else if (!(testing[j].toString().equals(Main_Class.univocityDetetced_Line)) && !(testing[j].toString().equals(Main_Class.univocityDetetced_delimiter))
-//							&& !(testing[j].toString().equals(new Padded_Class().toString())) )  
-//					{
-//						list.add(testing[j]);
-//					}
-//				}
-//				
-//				writer.writeRow(list);
-//			}
-//			writer.close();
-//	     }
-//	     catch (IOException e) {
-//	        // handle exception
-//	     }	
 	 }
 	
 	

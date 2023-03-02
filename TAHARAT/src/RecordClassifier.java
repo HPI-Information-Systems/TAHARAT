@@ -19,25 +19,14 @@ public class RecordClassifier {
 		
 		List<Integer> parsed_rows_indicies_LIST = new ArrayList<Integer>(already_parsed_rows);
 		Collections.sort(parsed_rows_indicies_LIST);
-	
-//		System.out.println("Parsed Rows Size "+parsed_rows_indicies_LIST.size());
-//		System.out.println(parsed_rows_indicies_LIST);
-		
+			
 		List<Integer> possible_Outlier_Rows_indicies_LIST = new ArrayList<Integer>();
 		for (Integer item : all_rows_list) {
 		    if (parsed_rows_indicies_LIST.contains(item)) {
-		       // duplicateList.add(item);
 		    } else {
 		    	possible_Outlier_Rows_indicies_LIST.add(item);
 		    }
 		}
-		
-       // Call GroundTruthComparison class for evaluation ------------------------------------------------------
-		
-//		System.out.println("Possible Outliers Size "+possible_Outlier_Rows_indicies_LIST.size());
-//		System.out.println(possible_Outlier_Rows_indicies_LIST);
-		
-		
 		return possible_Outlier_Rows_indicies_LIST;
 	}  
 }

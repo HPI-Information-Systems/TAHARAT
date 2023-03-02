@@ -168,8 +168,6 @@ public class PatternAlignment {
   public static ArrayList<Object> noConsecutiveDups(List<Object> input) 
 	 {
 		  ArrayList<Object> newList = new ArrayList<Object>();
-
-		  // Always add first value
 		  newList.add(input.get(0));
 
 		  // Iterate the remaining values
@@ -191,132 +189,7 @@ public class PatternAlignment {
   	 return	false;
   }
  
-   //-------------------- commented this method as we are no more using the greedy approach for backtracking----------------------
-  
-//  public static List<PatternAlignmentResult> backtrack_DM(float[][] matrix, List<List<Object>> potential, List<List<Object>> dominant)
-//  {
-//	 
-//	 Map<List<Pair<List<Object>, List<Object>>>, List<Pair<Integer, Integer>>> result= new LinkedHashMap<List<Pair<List<Object>,List<Object>>>, List<Pair<Integer,Integer>>>();
-//	 List<PatternAlignmentResult> instance_PAR_new = new LinkedList<PatternAlignmentResult>();
-//	
-//	 class Local {
-//  	
-//		Stack<Pair<Integer,Integer>> positions_stack = new Stack<Pair<Integer,Integer>>();
-//  		Stack<Pair<List<Object>,List<Object>>> segments_stack = new Stack<Pair<List<Object>,List<Object>>>();
-//  		
-//        public void backtrack_recursive(int i , int j)
-//        {
-//        	positions_stack.push(new Pair<Integer, Integer>(i,j));
-//        	
-//        	float shortest =  (float) 0.0;
-//        	if(i>0  && j>0)
-//        	{
-//        		float temp1 = matrix[i-1][j];
-//             	float temp2 = matrix[i][j-1];
-//             	float temp3 = matrix[i-1][j-1];	
-//             	
-//             	 shortest = min(temp1, temp2, temp3);
-//        	}
-//            
-//        	if(i ==0 && j!= 0)   // check for the corner cases 
-//        	{
-//        		while(j!=0)
-//        		{
-//        			List<Object> l = new ArrayList<>() ; l.add(GAP_CLASS.toString());
-//                   
-//        			segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(l), new ArrayList<Object>(potential.get(j-1))));
-//        			if(!(positions_stack.contains(new Pair<Integer, Integer>(i,j))))
-//        			   positions_stack.push(new Pair<Integer, Integer>(i,j));
-//        			j--;
-//        		}
-//        	}
-//        	
-//        	if(j ==0 && i!= 0)     // check for the corner cases 
-//        	{
-//        		while(i!=0) 
-//        		{
-//        			
-//                    List<Object> l = new ArrayList<>() ; l.add(GAP_CLASS.toString());
-//            		
-//            		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(dominant.get(i-1)), new ArrayList<Object>(l)));
-//            		if(!(positions_stack.contains(new Pair<Integer, Integer>(i,j))))
-//          			   positions_stack.push(new Pair<Integer, Integer>(i,j));
-//         			i--;
-// 
-//        		}
-//        	}
-//        	
-//        	if ( i ==0 && j == 0)
-//        	{ 
-//        		
-//        		List<Pair<Integer, Integer>> one = new ArrayList<Pair<Integer,Integer>>();
-//        		for(Pair<Integer, Integer> s : positions_stack)
-//        		{
-//        			one.add(s);
-//        		}
-//        		Collections.reverse(one);
-//        		
-//        		List<Pair<List<Object>,List<Object>>> two = new ArrayList<Pair<List<Object>,List<Object>>>();
-//        		for(Pair<List<Object>, List<Object>> s : segments_stack)
-//        		{
-//        			two.add(s);
-//        		}
-//        		Collections.reverse(two);
-//        		
-//        		float score = matrix[matrix.length-1][matrix[matrix.length-1].length-1];
-//        
-//        		result.put(two, one);
-//         		instance_PAR_new.add(new PatternAlignmentResult(two, one, score/segments_stack.size()));
-//        	}
-//        	
-//        	if ( i > 0 && j > 0 && similarityCheck(potential.get(j-1), dominant.get(i-1)) )
-//          	{
-//          		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(dominant.get(i-1)), new ArrayList<Object>(potential.get(j-1))));
-//          		backtrack_recursive(i-1, j-1);
-//          		segments_stack.pop();
-//          	}
-//        		
-//        	else
-//        	{
-//        		if ( i > 0 && matrix[i-1][j] == shortest )        // insertion cost
-//            	{
-//            		List<Object> l = new ArrayList<>() ; l.add(GAP_CLASS.toString());
-//            		
-//            		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(dominant.get(i-1)), new ArrayList<Object>(l)));
-//            		backtrack_recursive(i-1, j);
-//            		segments_stack.pop();
-//            	}
-//            	
-//            	if ( j > 0  && matrix[i][j-1]  == shortest )         // deletion cost
-//            	{
-//            		List<Object> l = new ArrayList<>() ; l.add(GAP_CLASS.toString());
-//            
-//            		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(l), new ArrayList<Object>(potential.get(j-1))));
-//            		backtrack_recursive(i, j-1);
-//            		segments_stack.pop();
-//            	}
-//      
-//            	if ( i > 0 && j > 0  && matrix[i-1][j-1] == shortest)
-//            	{
-//            		segments_stack.push(new Pair<List<Object>, List<Object>>(new ArrayList<Object>(dominant.get(i-1)), new ArrayList<Object>(potential.get(j-1))));
-//            		backtrack_recursive(i-1, j-1);
-//            		segments_stack.pop();
-//            	}
-//        	}
-//        	 positions_stack.pop();
-//          }
-//        
-//  	 };   
-//    	
-//	new Local().backtrack_recursive(dominant.size(), potential.size());
-//    
-//	PatternAlignment.shortestPathGraphCreation(matrix, potential, dominant); // =============================== 
-//	
-//	return instance_PAR_new ;
-//  }
-  
 
- 
   static List<PatternAlignmentResult> shortestPathGraphCreation(float[][] matrix, List<List<Object>> potential, List<List<Object>> dominant, List<Integer> crossponding_Rows) 
   {
       // mark all the vertices 
@@ -556,23 +429,5 @@ public class PatternAlignment {
 	  
 	  return instance_PAR_new;  
   }
-  
-//  public static void main(String args[])
-//	{ 
-//		
-//		List<Object> l = new ArrayList<Object>();
-//		List<Object> l_2 = new ArrayList<Object>();
-//		
-//		l.add("\"");l.add(new Digit_Class().toString());l.add(',');l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());
-//		l.add(',');l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add("\"");
-//		
-//		l_2.add("\"");l_2.add(new Sequence_Digit_Class().toString());l_2.add(',');l_2.add(new Sequence_Digit_Class().toString());l_2.add(',');
-//		l_2.add(new Sequence_Digit_Class().toString());l_2.add("\"");
-//		
-//		
-//		System.out.println(sequenceCheck(l, l_2));
-//		Object a = GAP_CLASS.toString();
-//		System.out.println(a);	
-//	}
   
 }

@@ -315,7 +315,7 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 					   // column based approach
 					   columns_recordList.add(value);
 					   columns_recordList.add(format.getDelimiterString());
-					   // column based approach for ill-formed records detected by SURAGH
+					  
 					   temp.add(value);
 					   temp.add(format.getDelimiterString());
 					   
@@ -324,13 +324,13 @@ private static final Candidate_Delimiter_Class CANDIDATE_DELIMITER_CLASS = new C
 				   else
 				   {   
 					   // row based approach
-					   tempStoreRecords.append(value);
+					    tempStoreRecords.append(value);
 					   // column based approach
 						columns_recordList.add(value); 
 					    columns_recordList.add("\n");  
-					    // column based approach for ill-formed records detected by SURAGH
-						 temp.add(value);
-						 temp.add("\n");
+						
+					    temp.add(value);
+						temp.add("\n");
 				   }
 				 
 			   }

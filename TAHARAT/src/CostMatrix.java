@@ -418,18 +418,4 @@ public class CostMatrix {
 		return false;
 	 }
 	 
-	 
-//	public static void main(String args[])
-//	{	
-//		System.out.println(ping_CostMatrix(MISSING_VALUES_CLASS.toString(), '2'));
-//		
-//		List<List<Object>> test = new ArrayList<List<Object>>();
-//		List<Object> l = new ArrayList<Object>();
-//		l.add("\"");l.add(new Digit_Class().toString());l.add(',');l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());
-//		l.add(',');l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add(new Digit_Class().toString());l.add("\"");l.add(FULL_TEXT_CLASS.toString());
-//		
-//		test.add(l);
-//		System.out.println(countAbstractionWeights(test));
-//	}
-	 
 }

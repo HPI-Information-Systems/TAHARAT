@@ -55,7 +55,7 @@ public class PatternAlignmentPreprocessor {
 		        }
 		         else
 		        {
-			       // delete or extract metadata part from data row -- improve preprocessor for metadata-Data rows , if metadata appear before data 
+			       
 		        }
 			}
 		   else
@@ -85,12 +85,6 @@ public class PatternAlignmentPreprocessor {
 				
 		PatternAlignmentResult rapaired_pat_Object = new PatternAlignmentResult(patternAlignmentResult.dominantPattern, patternAlignmentResult.potentialDominantPattern, patternAlignmentResult.pairs_of_patterns, patternAlignmentResult.pairs_of_indices, 
 				patternAlignmentResult.row_indices, PatternAlignmentScore.parseAlignmentSegments(repaired_pat_segments), patternAlignmentResult.transformationBlocks);
-		
-//		Collections.reverse(repaired_pat_segments);
-//		Collections.reverse(repaired_pat_indices);
-//		System.out.println("--------------------------------------------------");
-//		System.out.println(repaired_pat_segments+"           "+repaired_pat_indices+"             "+PatternAlignmentScore.parseAlignmentSegments(repaired_pat_segments));
-//		System.out.println("--------------------------------------------------");
 		
 		return rapaired_pat_Object;
 	}

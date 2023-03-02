@@ -197,7 +197,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 //		System.out.println("Text  "+outputMap);
 		outputMap = number_Check(inputMap);
 //		System.out.println("Number  "+outputMap);
-		outputMap = alphaNumeric_Check(inputMap);  // this class returns AlphaNumeric Class which is represented by same as Text
+		outputMap = alphaNumeric_Check(inputMap);  
 //		System.out.println("AlphaNumeric  "+outputMap);
 		
 		for(Entry<Integer,Object> entry : outputMap.entrySet())
@@ -218,7 +218,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 		
 		if(dominantObjects_Check.equals(potentailObjects_Check))
 			return true;
-		// for cases where digit and number OR letter and text are appear in combination
+
 		else if(!(dominantObjects_Check.equals(potentailObjects_Check)))
 		{
 		  if(containsOnlyText(dominantObjects_Check) && containsOnlyLetter(potentailObjects_Check)) 
@@ -240,15 +240,12 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 		   return false;
 	}
 	
-	// add more rules here, if necessary, such as -- containsOnlySymbols
-	public static boolean containsOnlyNumbers_and_Symbols(List<Object> input, List<Object> output) // both input and output patterns have digits and same kind of special characters
+	public static boolean containsOnlyNumbers_and_Symbols(List<Object> input, List<Object> output) 
     {
-		// TO DO !!! add check for double quote -- for example <SEQD> and "<SEQD>" are the same 
 		
 		List<Boolean> checkDominantObjects = new ArrayList<Boolean>();
 		List<Boolean> checkPotentailObjects = new ArrayList<Boolean>();
 		
-		// for dominant side check
 		for(int i = 0; i<input.size(); i++)
 		{
 			if(input.get(i) instanceof Character && output.contains(input.get(i)))
@@ -266,8 +263,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 					 checkDominantObjects.add(false); 
 			}
 		}
-//		System.out.println("digit and space and special Character for dominant  "+checkDominantObjects+"  input   "+input +" output"+output);
-		// for potential side check
+
 		for(int i = 0; i<output.size(); i++)
 		{
 			if(output.get(i) instanceof Character && input.contains(output.get(i)))
@@ -285,9 +281,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 					 checkPotentailObjects.add(false);
 			}
 		}
-		
-//		System.out.println("digit and space and special Character for potential "+checkPotentailObjects+"  input   "+input +" output"+output);
-		
+				
 		if (!(checkDominantObjects.isEmpty()) && areAllTrue(checkDominantObjects) && !(checkPotentailObjects.isEmpty()) && areAllTrue(checkPotentailObjects)) {
 			return true;
 		} else {
@@ -295,14 +289,12 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 		}
     }
 	
-	public static boolean containsOnlyLetters_and_Symbols(List<Object> input, List<Object> output) // both input and output patterns have letters and same kind of special characters
+	public static boolean containsOnlyLetters_and_Symbols(List<Object> input, List<Object> output) 
     {
-		// TO DO!!!! add check for double quote -- for example <SEQUL> and "<SEQUL>" are the same 
 		
 		List<Boolean> checkDominantObjects = new ArrayList<Boolean>();
 		List<Boolean> checkPotentailObjects = new ArrayList<Boolean>();
 		
-		// for dominant side check
 		for(int i = 0; i<input.size(); i++)
 		{
 			if(input.get(i) instanceof Character && output.contains(input.get(i)))
@@ -320,8 +312,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 					 checkDominantObjects.add(false); 
 			}
 		}
-//		System.out.println("letter and space and special Character for dominant  "+checkDominantObjects+"  input   "+input +" output"+output);
-		// for potential side check
+
 		for(int i = 0; i<output.size(); i++)
 		{
 			if(output.get(i) instanceof Character && input.contains(output.get(i)))
@@ -339,9 +330,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 					 checkPotentailObjects.add(false);
 			}
 		}
-		
-//		System.out.println("letter and space and special Character for potential "+checkPotentailObjects+"  input   "+input +" output"+output);
-		
+				
 		if (!(checkDominantObjects.isEmpty()) && areAllTrue(checkDominantObjects) && !(checkPotentailObjects.isEmpty()) && areAllTrue(checkPotentailObjects)) {
 			return true;
 		} else {
@@ -363,7 +352,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 					flag_dependency_check.add(false);
 			}
 		}
-//		System.out.println("digit class output  "+flag_dependency_check+"  input   "+input);
+
 		if (!(flag_dependency_check.isEmpty()) && areAllTrue(flag_dependency_check)) {
 			return true;
 		} else {
@@ -407,7 +396,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 					flag_dependency_check.add(false);
 			}
 		}
-//		System.out.println("letter class output  "+flag_dependency_check+"  input   "+input);
+
 		if (!(flag_dependency_check.isEmpty()) && areAllTrue(flag_dependency_check)) {
 			return true;
 		} else {
@@ -419,17 +408,17 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
     {
 		List<Boolean> flag_dependency_check = new ArrayList<Boolean>();
 		
-		if(input.toString().contains(TEXT_CLASS.toString()))  // here text is Alphanumeric
+		if(input.toString().contains(TEXT_CLASS.toString())) 
 		{
 			for(Object obj: input)
 			{
-				if(obj.toString().equals("\"") || obj.equals(TEXT_CLASS)) // here text is Alphanumeric
+				if(obj.toString().equals("\"") || obj.equals(TEXT_CLASS)) 
 					flag_dependency_check.add(true);
 				else
 					flag_dependency_check.add(false);
 			}
 		}
-//		System.out.println("text class output  "+flag_dependency_check+"  input   "+input);
+
 		if (!(flag_dependency_check.isEmpty()) && areAllTrue(flag_dependency_check)) {
 			return true;
 		} else {
@@ -462,8 +451,8 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 		{
 			for(int index = 0 ; index< mapTOlist.size(); index++)
 	    	{
-	    		//Object next_mapValue = hashMap_abstraction_premitive.get(entry.getKey()+1);
-	    		if( mapTOlist.get(index) == TEXT_CLASS || mapTOlist.get(index)== SEQUENCE_DIGIT_CLASS || mapTOlist.get(index)== SEQUENCE_UPPER_LETTER_CLASS || 
+
+				if( mapTOlist.get(index) == TEXT_CLASS || mapTOlist.get(index)== SEQUENCE_DIGIT_CLASS || mapTOlist.get(index)== SEQUENCE_UPPER_LETTER_CLASS || 
 						mapTOlist.get(index) == SPACE_CLASS || mapTOlist.get(index) == NUMBER_CLASS)
 	    		{
 		    			if(flag_for_seqeunce ) {
@@ -518,10 +507,9 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
     		   if(mapEntry_hashmapper_sequenceofUpperCaseLetters.getValue() == UPPER_LETTER_CLASS) {
     			  
     			   if(flag_sequenceofUpperCaseLetters) {
-    				   // second, third, ... upper case letter
+
     				   iterator_hashmap_sequenceofUpperCaseLetters.remove();
     				   
-    				   // second upper case letter
     				   if(flag_if_clause_UpperCaseLetters) {
     					   list_sequenceofUpperCaseLetters.add((int)mapEntry_hashmapper_sequenceofUpperCaseLetters.getKey() - 1); 
     					   flag_if_clause_UpperCaseLetters = false;
@@ -561,9 +549,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
     		   
     		   if(mapEntry_hashmapper_sequenceofdigits.getValue() == DIGIT_CLASS) {
     			   if(flag_sequenceofdigits) {
-    				   // second, third, ... digit  
     				   iterator_hashmap_sequenceofdigits.remove();
-    				   // second digit  
     				   if(flag_if_clause_digits) {
     					   list_sequenceofdigits.add((int)mapEntry_hashmapper_sequenceofdigits.getKey() - 1); 
     					   flag_if_clause_digits = false;
@@ -601,9 +587,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
     		   
     		   if(mapEntry_hashmapper_sequenceofWhiteSpaces.getValue() == SPACE_CLASS) {
     			   if(flag_sequenceofWhiteSpaces) {
-    				   // second, third, ... whitespace
     				   iterator_hashmap_sequenceofWhiteSpaces.remove();
-    				   // second whitespace 
     				   if(flag_if_clause_WhiteSpaces) {
     					   list_sequenceofWhiteSpaces.add((int)mapEntry_hashmapper_sequenceofWhiteSpaces.getKey() - 1); 
     					   flag_if_clause_WhiteSpaces = false;
@@ -646,7 +630,6 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 		
     	for(int index = 0 ; index< mapTOlist.size(); index++)
     	{
-    		//Object next_mapValue = hashMap_abstraction_premitive.get(entry.getKey()+1);
     		if( mapTOlist.get(index) == UPPER_LETTER_CLASS || mapTOlist.get(index)== SEQUENCE_UPPER_LETTER_CLASS || 
 					mapTOlist.get(index)== LOWER_LETTER_CLASS|| mapTOlist.get(index) == SEQUENCE_LOWER_LETTER_CLASS)
     		{
@@ -722,7 +705,7 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 		
     	for(int index = 0 ; index< mapTOlist.size(); index++)
     	{
-    		//Object next_mapValue = hashMap_abstraction_premitive.get(entry.getKey()+1);
+
     		if((mapTOlist.get(index) instanceof Character) &&
     				((char)mapTOlist.get(index) == 43 ||(char)mapTOlist.get(index) == 45) && !(flag_for_seqeunce))
     		{
@@ -823,7 +806,6 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 				+ Math.min(countLetters_ListONE, countLetters_ListTWO);
 		int size = Math.max(listONE.size(), listTWO.size());
 		float out = (float) sum / size;
-//		System.out.println("cost"  + (1-out));
 		return 1 - out;
 	}
 	
@@ -831,13 +813,10 @@ private static final Gap_Class GAP_CLASS = new Gap_Class();
 	 {
 		  ArrayList<Object> newList = new ArrayList<Object>();
 
-		  // Always add first value
 		  if(!(input.isEmpty()))
 		   newList.add(input.get(0));
 
-		  // Iterate the remaining values
 		  for(int i = 1; i < input.size(); i++) {
-		    // Compare current value to previous
 		    if(input.get(i-1).toString() != input.get(i).toString()) {
 		       newList.add(input.get(i));
 		    }
